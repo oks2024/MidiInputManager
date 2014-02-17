@@ -50,6 +50,8 @@ MidiInputManager::MidiInputManager(void)
 
 MidiInputManager::~MidiInputManager(void)
 {
+    TurnOffAllButtons();
+    Update();
     delete m_pMidiIn;
 }
 
@@ -184,15 +186,19 @@ void MidiInputManager::SetMinAndMaxValues(NanoKontrolInputs p_Input, float p_Min
 }
 
 
-MidiInputManager* MidiInputManager::Instance()
+MidiInputManager& MidiInputManager::Instance()
 {
-    if (m_Instance == NULL)
-    {
-        m_Instance = new MidiInputManager();
-    }
+    //if (m_Instance == NULL)
+    //{
+    //    m_Instance = new MidiInputManager();
+    //}
 
-    return m_Instance;
+    //return m_Instance;
+
+    static MidiInputManager instance;
+
+    return instance;
 }
 
-MidiInputManager* MidiInputManager::m_Instance = NULL;
+//MidiInputManager* MidiInputManager::m_Instance = NULL;
 
