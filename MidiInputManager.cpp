@@ -75,23 +75,19 @@ void MidiInputManager::Update()
         // Check if it's a button
         if (IsMidiButton(input))
         {
+            // There is two values for buttons, pressed and released.
             if (value == 0)
             {
                 m_MidiState[input][0] = !m_MidiState[input][0];
 
-                if ( m_MidiState[input][0])
+                if (m_MidiState[input][0])
                 {
-                    m_OutMessages[1] = input;
-                    m_OutMessages[2] = 127;
-                    m_pMidiOut->sendMessage(&m_OutMessages);
-
+                    TurnOnButton(input);
                     UpdateButtonState(input);
                 }
                 else
                 {
-                    m_OutMessages[1] = input;
-                    m_OutMessages[2] = 0;
-                    m_pMidiOut->sendMessage(&m_OutMessages);
+                    TurnOffButton(input);
                 }
             }
         }
@@ -124,6 +120,8 @@ void MidiInputManager::UpdateButtonState(int p_Input)
     // Record buttons.
     if ((p_Input >= NKI_R1) && (p_Input <= NKI_R8))
     {
+        m_MidiState[p_Input + (NKI_M1 - NKI_R1)][0] = 0;
+        m_MidiState[p_Input + (NKI_S1 - NKI_R1)][0] = 0;
         TurnOffButton(p_Input + (NKI_M1 - NKI_R1));
         TurnOffButton(p_Input + (NKI_S1 - NKI_R1));
         return;
@@ -132,6 +130,8 @@ void MidiInputManager::UpdateButtonState(int p_Input)
     // Mute buttons.
     if ((p_Input >= NKI_M1) && (p_Input <= NKI_M8))
     {
+        m_MidiState[p_Input + (NKI_R1 - NKI_M1)][0] = 0;
+        m_MidiState[p_Input + (NKI_S1 - NKI_M1)][0] = 0;
         TurnOffButton(p_Input + (NKI_R1 - NKI_M1));
         TurnOffButton(p_Input + (NKI_S1 - NKI_M1));
         return;
@@ -140,6 +140,8 @@ void MidiInputManager::UpdateButtonState(int p_Input)
     // Solo buttons.
     if ((p_Input >= NKI_S1) && (p_Input <= NKI_S8))
     {
+        m_MidiState[p_Input + (NKI_M1 - NKI_S1)][0] = 0;
+        m_MidiState[p_Input + (NKI_R1 - NKI_S1)][0] = 0;
         TurnOffButton(p_Input + (NKI_M1 - NKI_S1));
         TurnOffButton(p_Input + (NKI_R1 - NKI_S1));
         return;
