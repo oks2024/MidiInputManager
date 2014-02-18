@@ -150,8 +150,6 @@ private:
     std::vector<unsigned char> m_Messages;
     std::vector<unsigned char> m_OutMessages;
 
-    //static MidiInputManager* m_Instance;
-
     MidiInputManager(void);
     ~MidiInputManager(void);
 };
