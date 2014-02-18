@@ -5,3 +5,5 @@ By default, values are in the range 0-127. To change that, you can initialize a 
 You can also define the default value with InputMidiManager::Instance().SetDefaultValue(NKI_F1, 200).
 It’s just a first draft, since I’m using it I’ll add feature as soon as I need them. For now it’s only working with the Nanokontrol2, but it can easily be modified in order to be used with any midi controller.
 You just have to add the files to your project to use it, and follow the RtMidi instructions (http://www.music.mcgill.ca/~gary/rtmidi/index.html#compiling).
+
+You can find more informations on my website : www.alexandre-pestana.com .
